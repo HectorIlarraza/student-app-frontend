@@ -1,0 +1,38 @@
+@import "../../designUtils/colors";
+
+.studentCard{
+
+   display: flex;
+   margin: 10px;
+   border-bottom: 2px solid $background-gray;
+
+   &__profilePic{
+
+        margin: 8px;    
+
+        img{
+            width: 100px;
+            height: 100px;
+            border: 2px solid $background-gray;
+            border-radius: 50%;
+        }
+   }
+
+   &__info{
+        margin-left: 20px;
+   }
+
+   &__name{
+        font-size: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+   }
+
+   &__infoLine{
+        padding-left: 15px;
+        font-size: 14px;
+        color: $highlight-gray;
+        line-height: 20px;
+   }
+}

@@ -1,0 +1,18 @@
+@import "../../designUtils/colors";
+
+.studentList{
+    width: 600px;
+    margin: 10vh auto;
+    height: 80vh;
+    background-color: white;
+    overflow-y: scroll;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px $shadow-gray;
+
+    &__noResults{
+        font-weight: 600;
+        margin: 0 auto;
+        display: table;
+        padding-top: 200px;
+    }
+}
