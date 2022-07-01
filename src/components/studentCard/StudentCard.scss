@@ -1,4 +1,5 @@
 @import "../../designUtils/colors";
+@import "../../designUtils/fontDesign";
 
 .studentCard{
 
@@ -23,16 +24,38 @@
    }
 
    &__name{
-        font-size: 30px;
+        font-size: 32px;
         font-weight: 600;
         text-transform: uppercase;
         margin-bottom: 8px;
    }
 
    &__infoLine{
-        padding-left: 15px;
-        font-size: 14px;
-        color: $highlight-gray;
+        @extend %gray-and-indented;
         line-height: 20px;
    }
+
+   &__gradesList{
+        @extend %gray-and-indented;
+        margin-top: 10px;
+        span{
+          min-width: 60px;
+          display: inline-block;
+        }
+        display: none;
+   }
+
+   &__toggleIcons{
+        color: $shadow-gray;
+        padding-top: 8px;
+   }
+
+   &__toggleIcon{
+        cursor: pointer;
+        &:hover{
+          color: black;
+        }
+   }
+
+   
 }
