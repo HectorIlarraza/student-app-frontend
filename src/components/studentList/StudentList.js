@@ -29,7 +29,7 @@ const StudentList = () => {
     let filterStudents = students;
 
     if(searchTerm){
-        filterStudents.filter(student => {
+        filterStudents= students.filter(student => {
        
         const fullName = `${student.firstName} ${student.lastName}`;
        
@@ -45,9 +45,9 @@ const StudentList = () => {
   return (
     <div className='studentList'>
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      {filterStudents.map(student => {
+      {filterStudents.map((student, index) => {
         return (
-            <StudentCard student={student} key={student.id}/>
+            <StudentCard student={student} key={index}/>
         )
       })}
 

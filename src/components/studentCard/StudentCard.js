@@ -39,10 +39,10 @@ const StudentCard = ({student}) => {
                 <div className='studentCard__infoLine'>
                     Average: {calculateAverage(grades)}%
                 </div>
-                <div className='studentCard__gradesList' style={{"display": showGrades ? true : false}}>
+                <div className='studentCard__gradesList' style={{"display": showGrades ? "block" : "none"}}>
                     {grades.map((grade, index) => {
                         return (
-                            <div><span>Test {index + 1}:</span><span>{grade}%</span></div>
+                                <div key={index}><span>Test {index + 1}:</span><span>{grade}%</span></div>
                             )
                         })}
                 </div>
