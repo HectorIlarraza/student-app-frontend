@@ -1,0 +1,48 @@
+@import "../../designUtils/colors";
+
+.navbar{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 20%;
+    border-bottom: $shadow-gray 2px solid;
+
+    &__logo{
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    &__menuItems{
+        display: flex;
+        width: 32%;
+        justify-content: space-between;
+    }
+
+    &__menuItem{
+        list-style: none;
+        a{
+            text-decoration: none;
+            color: black;
+        }
+    }
+
+    &__toogleIcon{
+        display: none;
+    }
+
+    @media only screen and (max-width: 440px){
+        padding: 0 15px;
+
+        &__menuItems{
+            display: none;
+        }
+        
+        &__toogleIcon{
+            display: block;
+            font-weight: 600;
+            font-size: 24px;
+        }
+    } 
+}

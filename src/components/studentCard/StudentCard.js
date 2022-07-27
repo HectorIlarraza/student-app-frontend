@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from  "react-router-dom";
+
+import SingleTextInput from '../singleTextInput/SingleTextInput.js';
+import EmptyView from "../emptyView/EmptyView";
+
+import "./StudentCard.scss";
+
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { AiOutlineReload } from "react-icons/ai";
-import { Link } from  "react-router-dom";
-import SingleTextInput from '../singleTextInput/SingleTextInput.js';
-import "./StudentCard.scss";
 
 const StudentCard = ({student}) => {
     
     // Props deconstructed
-    const {pic, firstname, lastname, email, company, skill} = student;
+    const {pic, firstname, lastname, email, company, skill, id} = student;
 
     // Hooks
     const [grades, setGrades] = useState([]);
@@ -42,27 +46,29 @@ const StudentCard = ({student}) => {
 
             setGradesLoading(true);
     
-            const url = "http://localhost:9000/students/1/grades";
+            const url = `https://student-app-be.herokuapp.com/students/${id}/grades`;
     
             fetch(url)
             .then(res => res.json())
             .then(data => {
+
                 setGrades(data);
+                setShowGrades(true);
                 setGradesLoading(false);
             })
         }
         
     }
     
-    useEffect(() => {
-        if(grades.length){
-            setShowGrades(!showGrades);
-        }
-    }, [grades])
+    // useEffect(() => {
+    //     if(grades.length){
+    //         setShowGrades(!showGrades);
+    //     }
+    // }, [grades])
 
     return (
         <div className='studentCard'>
-            <Link to={`/students/${student.id}`} state={{ student: student}}>
+            <Link to={`/students/${id}`} state={{ student: student}}>
             <div className='studentCard__profilePic'>
                 <img src={pic} alt="" />
             </div>
@@ -80,14 +86,19 @@ const StudentCard = ({student}) => {
                     Skills: {skill}
                 </div>
                 <div className='studentCard__gradesList' style={{"display": showGrades ? "block" : "none"}}>
-                    <div className='studentCard__gradeAverage'>
-                        Average: {grades.length && calculateAverage(grades)}%
-                    </div>
-                    {grades.map((grade, index) => {
-                        return (
-                                <div key={index}><span>Test {index + 1}:</span><span>{grade.grade}%</span></div>
-                            )
-                        })}
+                    {grades.length > 0 && 
+                        <>
+                            <div className='studentCard__gradeAverage'>
+                                Average: {grades.length && calculateAverage(grades)}%
+                            </div>
+                            {grades.map((grade, index) => {
+                                return (
+                                        <div key={index}><span>Test {index + 1}:</span><span>{grade.grade}%</span></div>
+                                    )
+                                })}
+                        </>
+                    }
+                    {grades.length === 0 && <EmptyView text='No Grades for this Student'/>}
                 </div>
             </div>
             <div className='studentCard__toggleIcons'>
