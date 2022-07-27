@@ -9,10 +9,12 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Routes>
-        <Route exact path="/" element={<StudentList />} />
-        <Route path="/students/:studentId" element={<StudentDetailPage />} />
-      </Routes>
+      <div className='pageContainer'>
+        <Routes>
+          <Route exact path="/" element={<StudentList />} />
+          <Route path="/students/:studentId" element={<StudentDetailPage />} />
+        </Routes>
+      </div>
     </div>
   );
 }
