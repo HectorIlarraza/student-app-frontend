@@ -3,7 +3,10 @@ import { Link } from  "react-router-dom";
 
 import SingleTextInput from '../singleTextInput/SingleTextInput.js';
 import EmptyView from "../emptyView/EmptyView";
+
 import DialogueBox from '../dialogueBox/DialogueBox.js';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 import "./StudentCard.scss";
 
@@ -22,6 +25,8 @@ const StudentCard = ({student}) => {
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    const [deleteUserLoading, setDeleteUserLoading] = useState(false);
+    const [showSnackbar, setShowSnackBar] = useState(false);
 
     // Functions
     const calculateAverage = (grades) => {
@@ -67,6 +72,8 @@ const StudentCard = ({student}) => {
     }
 
     const deleteUser = () => {
+
+        setDeleteUserLoading(true);
         // url to delete
         const url = `https://student-app-be.herokuapp.com/students/${id}`;
 
@@ -75,9 +82,11 @@ const StudentCard = ({student}) => {
             .then(data => {
                 // redirect to the home page
                 // show toast that user was deleted
-
+                setDeleteUserLoading(false);
             }).catch(err => {
                 // show toast that delete was successful
+                setDeleteUserLoading(false);
+                setShowSnackBar(true);
             })
     }
     
@@ -89,6 +98,15 @@ const StudentCard = ({student}) => {
 
     return (
         <div className='studentCard'>
+             <Snackbar 
+                open={showSnackbar} 
+                anchorOrigin={{ vertical: "top", horizontal: "center" }} 
+                autoHideDuration={1500} 
+                onClose={() => setShowSnackBar(false)}
+                >
+                <Alert severity="error">An error occurred while deleting — try again later.</Alert>
+             </Snackbar>
+
             <Link to={`/students/${id}`} state={{ student: student}}>
             <div className='studentCard__profilePic'>
                 <img src={pic} alt="" />
@@ -143,8 +161,8 @@ const StudentCard = ({student}) => {
                     </div>
                 </div>
                 <div>
-                    {gradesLoading && <AiOutlineReload className='studentCard__toggleIcon-spinning' size="1.8em" />}
-                    {(!showGrades && !gradesLoading) && <FaTrash className='studentCard__trashIcon' onClick={(e) => showDeleteUserDialouge(e)} size="1.8em" />}
+                    {deleteUserLoading && <AiOutlineReload className='studentCard__toggleIcon-spinning' size="1.8em" />}
+                    {(!showGrades && !deleteUserLoading) && <FaTrash className='studentCard__trashIcon' onClick={(e) => showDeleteUserDialouge(e)} size="1.8em" />}
                 </div>
             </div>
             <DialogueBox open={showDeleteDialog} setOpen={setShowDeleteDialog} deleteUser={deleteUser}/>
