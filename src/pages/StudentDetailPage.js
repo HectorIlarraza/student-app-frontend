@@ -35,6 +35,7 @@ export const StudentDetailPage = () => {
     // add icon on detail page (ie. garbage can)
     // on click open confirm dialogue
     // on cancel, close dialogue
+    
     // on confirm, show loader while delete happens
     // on error, show toast that delete was not successful
     // on success, redirect to home page

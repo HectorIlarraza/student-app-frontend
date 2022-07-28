@@ -3,6 +3,7 @@ import { Link } from  "react-router-dom";
 
 import SingleTextInput from '../singleTextInput/SingleTextInput.js';
 import EmptyView from "../emptyView/EmptyView";
+import DialogueBox from '../dialogueBox/DialogueBox.js';
 
 import "./StudentCard.scss";
 
@@ -20,6 +21,7 @@ const StudentCard = ({student}) => {
     const [gradesLoading, setGradesLoading] = useState(false);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
     // Functions
     const calculateAverage = (grades) => {
@@ -58,6 +60,25 @@ const StudentCard = ({student}) => {
             })
         }
         
+    }
+
+    const showDeleteUserDialouge = (e) => {
+        setShowDeleteDialog(true);
+    }
+
+    const deleteUser = () => {
+        // url to delete
+        const url = `https://student-app-be.herokuapp.com/students/${id}`;
+
+        fetch(url, { method: "DELETE" })
+            .then(res => res.json())
+            .then(data => {
+                // redirect to the home page
+                // show toast that user was deleted
+
+            }).catch(err => {
+                // show toast that delete was successful
+            })
     }
     
     // useEffect(() => {
@@ -123,9 +144,10 @@ const StudentCard = ({student}) => {
                 </div>
                 <div>
                     {gradesLoading && <AiOutlineReload className='studentCard__toggleIcon-spinning' size="1.8em" />}
-                    {(!showGrades && !gradesLoading) && <FaTrash className='studentCard__trashIcon' onClick={(e) => fetchAndShowGrades(e)} size="1.8em" />}
+                    {(!showGrades && !gradesLoading) && <FaTrash className='studentCard__trashIcon' onClick={(e) => showDeleteUserDialouge(e)} size="1.8em" />}
                 </div>
             </div>
+            <DialogueBox open={showDeleteDialog} setOpen={setShowDeleteDialog} deleteUser={deleteUser}/>
         </div>
     )
 }
