@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import StudentCard from "../studentCard/StudentCard";
+import { useLocation } from 'react-router-dom';
+
 import SingleTextInput from '../singleTextInput/SingleTextInput';
-import "./StudentList.scss";
+import StudentCard from "../studentCard/StudentCard";
 import EmptyView from '../emptyView/EmptyView';
 
-const StudentList = () => {
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+
+import "./StudentList.scss";
+
+const StudentList = (props) => {
+
+    let location = useLocation();
 
     // hooks
     const [students, setStudents] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showSnackbar, setShowSnackBar] = useState(false);
 
     // function
     useEffect(() => {
 
       setLoading(true);
+
+      if(location?.state?.studentName){
+        // alert that user user was deleted
+        setShowSnackBar(true);
+      }
 
       const url = "https://student-app-be.herokuapp.com/students";
       // reach out to the backend
@@ -36,7 +50,7 @@ const StudentList = () => {
     if(searchTerm){
         filterStudents= students.filter(student => {
        
-        const fullName = `${student.firstName} ${student.lastName}`;
+        const fullName = `${student.firstname} ${student.lastname}`;
        
         const fullNameToLowerCase = fullName.toLowerCase();
        
@@ -49,6 +63,14 @@ const StudentList = () => {
     // return or JSX
   return (
     <div className='studentList'>
+      <Snackbar 
+        open={showSnackbar} 
+        anchorOrigin={{ vertical: "top", horizontal: "center" }} 
+        autoHideDuration={1500} 
+        onClose={() => setShowSnackBar(false)}
+        >
+        <Alert>{location?.state?.studentName} was successfully deleted.</Alert>
+      </Snackbar>
       <SingleTextInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       {filterStudents.map((student, index) => {
         return (

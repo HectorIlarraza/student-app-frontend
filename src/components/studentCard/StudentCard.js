@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from  "react-router-dom";
+import { Link, useNavigate } from  "react-router-dom";
 
 import SingleTextInput from '../singleTextInput/SingleTextInput.js';
 import EmptyView from "../emptyView/EmptyView";
-
 import DialogueBox from '../dialogueBox/DialogueBox.js';
+
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 
@@ -13,7 +13,9 @@ import "./StudentCard.scss";
 import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
 import { AiOutlineReload } from "react-icons/ai";
 
-const StudentCard = ({student}) => {
+const StudentCard = ({student, showDelete = false}) => {
+
+    let navigate = useNavigate();
     
     // Props deconstructed
     const {pic, firstname, lastname, email, company, skill, id} = student;
@@ -81,7 +83,12 @@ const StudentCard = ({student}) => {
             .then(res => res.json())
             .then(data => {
                 // redirect to the home page
-                // show toast that user was deleted
+                navigate("/", { 
+                    state: {
+                        studentName: `${data.firstname} ${data.lastname}`
+                    }
+                });
+
                 setDeleteUserLoading(false);
             }).catch(err => {
                 // show toast that delete was successful
@@ -160,10 +167,10 @@ const StudentCard = ({student}) => {
                         {<SingleTextInput onSubmit={setTags} collection={tags} searchTerm={tag} setSearchTerm={setTag} width="26%" placeholder="Add a tag" />}
                     </div>
                 </div>
-                <div>
+                {showDelete && <div>
                     {deleteUserLoading && <AiOutlineReload className='studentCard__toggleIcon-spinning' size="1.8em" />}
                     {(!showGrades && !deleteUserLoading) && <FaTrash className='studentCard__trashIcon' onClick={(e) => showDeleteUserDialouge(e)} size="1.8em" />}
-                </div>
+                </div>}
             </div>
             <DialogueBox open={showDeleteDialog} setOpen={setShowDeleteDialog} deleteUser={deleteUser}/>
         </div>
