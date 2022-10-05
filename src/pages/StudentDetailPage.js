@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom';
 
 import StudentCard from '../components/studentCard/StudentCard';
-import StudentUpdateForm from '../components/studentUpdateForm/studentUpdateForm';
+import StudentUpdateForm from '../components/studentUpdateForm/StudentUpdateForm';
 
 export const StudentDetailPage = () => {
   
@@ -33,15 +33,12 @@ export const StudentDetailPage = () => {
     // with the student Id, we can fetch student info
     // from our API
 
-    // delete student
-    // add icon on detail page (ie. garbage can)
-    // on click open confirm dialogue
-    // on cancel, close dialogue
-    
-    // on confirm, show loader while delete happens
-    // on error, show toast that delete was not successful
-    // on success, redirect to home page
-    // and show toast that user was deleted. 
+    // Update student
+    // create update components
+    // with form for all fields
+    // on submit, show loader
+    // on success show toast
+    // on fail show toast (error)
 
     return (
     <div className='studentDetailPage'>
