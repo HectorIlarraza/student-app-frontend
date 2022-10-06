@@ -43,7 +43,7 @@ export const StudentDetailPage = () => {
     return (
     <div className='studentDetailPage'>
         {Object.keys(student).length > 0 && <StudentCard student={student} showDelete />}
-        <StudentUpdateForm />
+        {Object.keys(student).length > 0 && <StudentUpdateForm student={student}/>}
     </div>
   )
 }

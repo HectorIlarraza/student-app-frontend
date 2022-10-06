@@ -1,5 +1,6 @@
 @import "../../designUtils/colors";
 @import "../../designUtils/fontDesign";
+@import "../../designUtils/animations";
 
 .studentUpdateForm{
     padding: 10px;
@@ -24,4 +25,8 @@
          display: flex;
          justify-content: end;
      }
+
+     &__submitLoader-spinning{
+        @extend %spinning-icon;
+    }
 }

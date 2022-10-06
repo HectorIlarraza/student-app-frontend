@@ -9,13 +9,13 @@ const SingleTextInput = ({searchTerm, setSearchTerm, collection = [], onSubmit, 
 
     useEffect(() => {
         const keyDownHandler = e => {
-            console.log("User pressed: ", e.key);
+            // console.log("User pressed: ", e.key);
 
-            if(e.key === "Enter"){
-                e.preventDefault();
+            // if(e.key === "Enter"){
+            //     e.preventDefault();
 
-                handleSubmit();
-            }
+            //     handleSubmit();
+            // }
         };
 
         document.addEventListener("keydown", keyDownHandler);
