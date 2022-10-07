@@ -17,6 +17,7 @@ function StudentForm({student = {}, setStudent, title ="Update", method="PUT"}) 
   const [firstname, setFirstName] = useState(student.firstname);
   const [lastname, setLastName] = useState(student.lastname);
   const [company, setCompany] = useState(student.company);
+  const [email, setEmail] = useState(student.email);
   const [city, setCity] = useState(student.city);
   const [skill, setSkill] = useState(student.skill);
   const [pic, setPic] = useState(student.pic);
@@ -41,6 +42,9 @@ function StudentForm({student = {}, setStudent, title ="Update", method="PUT"}) 
                 break;
             case "company":
                 setCompany(e.target.value);
+                break;
+            case "email":
+                setEmail(e.target.value);
                 break;
             case "city":
                 setCity(e.target.value);
@@ -72,7 +76,7 @@ function StudentForm({student = {}, setStudent, title ="Update", method="PUT"}) 
         const requestOptions = {
             method,
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ firstname, lastname, company, city, skill, pic })
+            body: JSON.stringify({ firstname, lastname, company, email, city, skill, pic })
         };
 
         // fetch 
@@ -107,7 +111,6 @@ function StudentForm({student = {}, setStudent, title ="Update", method="PUT"}) 
     }
 
     const action = method === "PUT" ? "updating student" : "adding student";
-
     const errorElement = <Alert severity="error">An error occurred while {action} — please try again later.</Alert>
     const successElement = <Alert>Student was updated successfully!</Alert>
 
@@ -140,6 +143,14 @@ function StudentForm({student = {}, setStudent, title ="Update", method="PUT"}) 
                 variant='outlined'  
                 value={lastname} 
                 onChange={(e) => handleChange(e)}    
+            />
+            <TextField 
+                id='outlined-basic'
+                name='email' 
+                label='Email' 
+                variant='outlined' 
+                value={email}
+                onChange={(e) => handleChange(e)} 
             />
             <TextField 
                 id='outlined-basic'

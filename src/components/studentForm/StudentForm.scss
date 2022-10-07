@@ -19,6 +19,10 @@
         grid-template-columns: 1fr 1fr; 
         gap: 10px;
         row-gap: 10px;
+        & > :last-child{
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
      }
 
      &__submit{
