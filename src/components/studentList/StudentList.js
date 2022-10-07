@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import SingleTextInput from '../singleTextInput/SingleTextInput';
+import SearchBar from '../searchBar/SearchBar';
 import StudentCard from "../studentCard/StudentCard";
 import EmptyView from '../emptyView/EmptyView';
 
@@ -71,7 +71,7 @@ const StudentList = (props) => {
         >
         <Alert>{location?.state?.studentName} was successfully deleted.</Alert>
       </Snackbar>
-      <SingleTextInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       {filterStudents.map((student, index) => {
         return (
             <StudentCard student={student} key={index}/>
