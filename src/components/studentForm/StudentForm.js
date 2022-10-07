@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,6 +11,8 @@ import { AiOutlineReload } from "react-icons/ai";
 import "./StudentForm.scss";
 
 function StudentForm({student = {}, setStudent, title ="Update", method="PUT"}) {
+  
+    let navigate = useNavigate()
 
   const [firstname, setFirstName] = useState(student.firstname);
   const [lastname, setLastName] = useState(student.lastname);
@@ -57,11 +60,16 @@ function StudentForm({student = {}, setStudent, title ="Update", method="PUT"}) 
         setLoading(true)
 
         // set our target url
-        const url = `https://student-app-be.herokuapp.com/students/${student.id}`;
+        let url = `https://student-app-be.herokuapp.com/students`;
+
+        if(method === "PUT"){
+            url += `/${student.id}`;
+        }
 
         // what data are we passing to our backend
+        // what http method are using
 
-        let requestOptions = {
+        const requestOptions = {
             method,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ firstname, lastname, company, city, skill, pic })
@@ -69,29 +77,32 @@ function StudentForm({student = {}, setStudent, title ="Update", method="PUT"}) 
 
         // fetch 
         fetch(url, requestOptions)
-        .then(res => res.json())
-        .then(data => {
-            
-            // success state
-            setStudent(data);
-            setAnyChanges(false);
-            setSuccessfulUpdate(true);
-            setShowSnackBar(true);
-
-            // show success toast
-            //TODO
-
-            // error state
-            //TODO
-
-            // set loading to false
-            setLoading(false);
-            
-        }).catch(err => {
-            setLoading(false);
-            // let user know an error has occurred
-            setSuccessfulUpdate(false);
-            setShowSnackBar(true);
+            .then(res => res.json())
+            .then(data => {
+                
+                if(method === "POST"){ // we adding a new user student
+                    
+                    // redirect to new student detail page
+                    navigate(`/students/${data.id}`, {
+                        state:{
+                            fromCreateStudent: true,
+                            studentName: `${data.firstname} ${data.lastname}`
+                        }
+                    });
+                        // on that page to new student detail page
+                }else{ // updating student
+                    setStudent(data);
+                    setAnyChanges(false);
+                    setSuccessfulUpdate(true);
+                    setShowSnackBar(true);
+                    setLoading(false);
+                }
+                
+            }).catch(err => {
+                setLoading(false);
+                // let user know an error has occurred
+                setSuccessfulUpdate(false);
+                setShowSnackBar(true);
         });
     }
 
