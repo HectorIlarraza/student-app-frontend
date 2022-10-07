@@ -9,6 +9,7 @@ const Navbar = () => {
   
   return (
     <div className='navbar'>
+      <div className='navbar__links'>
         <div className='navbar__logo' >
           <Link to="/">
             Student App
@@ -26,6 +27,7 @@ const Navbar = () => {
             </li>
         </div>
         <div className='navbar__toogleIcon'>=</div>
+      </div>
     </div>
   )
 }
