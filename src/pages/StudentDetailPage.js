@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom';
 
 import StudentCard from '../components/studentCard/StudentCard';
-import StudentUpdateForm from '../components/studentUpdateForm/StudentUpdateForm';
+import StudentUpdateForm from '../components/studentForm/StudentForm';
 
 export const StudentDetailPage = () => {
   

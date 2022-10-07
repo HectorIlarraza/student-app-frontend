@@ -8,7 +8,7 @@
      border-bottom: 2px solid $background-gray;
      background-color: white;
      
-     a{
+   a{
      text-decoration: none;
      display: flex;
      color: unset;
@@ -98,15 +98,6 @@
    &__trashIcon{
      padding-top: 20px;
    }
-
-  //  @keyframes spin-animation {
-  //    0%{
-  //         transform: rotate(0deg);
-  //    }
-  //    100%{
-  //         transform: rotate(360deg);
-  //    }
-  //  }
 
    @media only screen and (max-width: 440px){
      &_name{
