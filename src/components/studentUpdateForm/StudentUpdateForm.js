@@ -9,7 +9,7 @@ import { AiOutlineReload } from "react-icons/ai";
 
 import "./StudentUpdateForm.scss";
 
-function StudentUpdateForm({student}) {
+function StudentUpdateForm({student, setStudent}) {
 
   const [firstname, setFirstName] = useState(student.firstname);
   const [lastname, setLastName] = useState(student.lastname);
@@ -20,6 +20,7 @@ function StudentUpdateForm({student}) {
   const [anyChanges, setAnyChanges] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showSnackbar, setShowSnackBar] = useState(false);
+  const [successfulUpdate, setSuccessfulUpdate] = useState(false);
 
   const handleChange = (e) => {
         
@@ -70,10 +71,15 @@ function StudentUpdateForm({student}) {
         fetch(url, requestOptions)
         .then(res => res.json())
         .then(data => {
-            // show success toast
-
+            
             // success state
-            console.log(data);
+            setStudent(data);
+            setAnyChanges(false);
+            setSuccessfulUpdate(true);
+            setShowSnackBar(true);
+
+            // show success toast
+            //TODO
 
             // error state
             //TODO
@@ -84,9 +90,14 @@ function StudentUpdateForm({student}) {
         }).catch(err => {
             setLoading(false);
             // let user know an error has occurred
+            setSuccessfulUpdate(false);
             setShowSnackBar(true);
         });
     }
+
+    const errorElement = <Alert severity="error">An error occurred while deleting — try again later.</Alert>
+    const successElement = <Alert>Student was updated successfully.</Alert>
+
 
   return (
     <div className='studentUpdateForm'>
@@ -95,8 +106,8 @@ function StudentUpdateForm({student}) {
             anchorOrigin={{ vertical: "top", horizontal: "center" }} 
             autoHideDuration={1500} 
             onClose={() => setShowSnackBar(false)}
-            >
-            <Alert severity="error">An error occurred while deleting — try again later.</Alert>
+        >
+           {successfulUpdate ? successElement : errorElement}    
         </Snackbar>
 
         <div className='studentUpdateForm__title'>Update Form</div>
