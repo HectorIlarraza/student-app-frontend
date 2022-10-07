@@ -12,11 +12,7 @@
         line-height: 60px;
         max-width: 800px;
         margin: 0 auto;
-    }
-
-    a{
-        text-decoration: none;
-        color: black;
+        cursor: default;
     }
 
     &__logo{
@@ -49,6 +45,23 @@
 
         &__menuItems{
             display: none;
+            &-active{
+                display: block;
+                background-color: white;
+                width: 100%;
+                z-index: 10;
+                position: absolute;
+                margin-top: 60px;
+                left: 0;
+                border-bottom: 1px $shadow-gray solid;
+            }
+        }
+
+        &__menuItem{
+            padding: 0 20px;
+            &:not(:last-child){
+                border-bottom: 1px $shadow-gray solid;
+            }
         }
         
         &__toogleIcon{
